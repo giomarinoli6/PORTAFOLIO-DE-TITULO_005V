@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}  {% load static %} 
+
+{% block contenido %}
+
+
+
+<h2 class="col-12">Formulario Registro</h2>
+
+<form action="" class="formulario_registro" method="POST">
+
+    {% csrf_token %}
+
+
+    {{ form }}
+
+    <br>
+    <button type="submit" id="btnEnviar" class="button">Enviar</button>
+        
+        
+</form>
+{{mensaje}}
+
+
+
+{% endblock  %}
