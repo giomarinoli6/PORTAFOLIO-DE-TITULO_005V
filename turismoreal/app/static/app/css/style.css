@@ -75,3 +75,92 @@ footer hr {
      width: 175px;
  
 }
+
+
+/* reserva ------------------------------------*/
+
+#div_reserva{
+
+    background-color:#ccffee;
+    height: 449px;
+    margin-right: auto;
+    right: 61px;
+    border: cornsilk;
+}
+
+#detalle_depa{
+
+    background-color:#00b377;
+    right: 2px;
+    width: 348px;
+
+}
+
+
+#butom_reserva{
+
+    background-color: #d9d9d9; 
+    margin-left: 104px;
+    margin-top: 6px;
+    width: 131px;
+
+}
+
+#ul_depa{
+
+   
+    text-align: center;
+    border-color:  #404040;
+}
+
+.articulos-listar-imagen {
+    width: 346px;
+    /* height: 100px;
+    border-radius: 100%; */
+}
+
+.texto_descripcion{
+ margin-left: 63px;
+}
+
+.contenedor_descripcion{
+    width: 90px;
+}
+
+#letra_reserva{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #404040;
+}
+
+/* arriendo -----------------------------------------*/
+
+#title{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+}
+
+
+
+/* departamento */
+
+.formulario_ingreso_depa{
+    margin-right: -226px;
+    margin-top: 41px;
+}
+
+#botom_ingresar_depa{
+    width: 186px;
+    margin-left: 87px;
+    margin-top: 10px;
+}
+
+/* #registroNombre {
+    border-radius: 100;
+    margin-right: 100px;
+    width: 60px;
+} */
+
+.label_ingreso_depa{
+    
+}

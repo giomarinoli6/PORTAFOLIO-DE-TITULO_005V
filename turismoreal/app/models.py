@@ -7,6 +7,7 @@ class Arriendo(models.Model):
     id_arriendo = models.CharField(primary_key=True, max_length=30)  # This field type is a guess.
     fecha_inicio = models.DateField()  # This field type is a guess.
     fecha_termino = models.DateField()  # This field type is a guess.
+    #cantidad de personas 
     descripcion_arriendo = models.TextField()
     descripcion_tipo_pago = models.CharField(max_length=50)  # This field type is a guess.
     imagen = models.ImageField(upload_to="arriendo", null=True)
@@ -46,6 +47,15 @@ class Registro(models.Model):
     tipo_registro = models.IntegerField(choices=opciones_consultas)
     mensaje = models.TextField()
     avisos = models.BooleanField()
+
+    def __str__(self):
+        return self.nombre
+
+class Departamento(models.Model): 
+    nombre = models.CharField(max_length=50)
+    ubicacion= models.CharField(max_length=60)
+    descripcion = models.TextField()
+    precio = models.IntegerField(default=0)
 
     def __str__(self):
         return self.nombre

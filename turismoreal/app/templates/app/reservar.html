@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}  {% load static %} 
+
+{% block contenido %}
+<h1 >Reserva</h1>
+<div  id="div_reserva" class="card mb-3" >
+    <div id="div_reserva" class=" row g-0">
+      <div  class= "col-md-4">
+        <img class="articulos-listar-imagen" src="{% static 'app/imagenes/departamento1.jpg'%}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="contenedor_descripcion col-md-8">
+        <div class="texto_descripcion card-body">
+          <h5 class="card-title">Descripcion</h5>
+          <p class="card-text">{{departamento.descripcion}}</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div id="detalle_depa" class="card" >
+        <ul class="list-group list-group-flush">
+          <li id="ul_depa" class="list-group-item">{{departamento.id}}</li>
+          <li id="ul_depa" class="list-group-item">{{departamento.nombre}}</li>
+          <li id="ul_depa" class="list-group-item">{{departamento.ubicacion}}</li>
+          <li id="ul_depa" class="list-group-item">{{departamento.precio}}</li>
+        </ul>
+        <!-- <div class="card-footer">
+          Card footer
+        </div> -->
+        <div  class="col-auto">
+            <button id="butom_reserva" type="submit" class="btn btn-primary"><b id="letra_reserva">Aceptar</b></button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- <h1>Pagina de hotel</h1>
+<p> El id recibido es: {{departamento.id}}</p>
+<p> El nombre recibido es: {{departamento.nombre}}</p> -->
+
+
+{% endblock  %}

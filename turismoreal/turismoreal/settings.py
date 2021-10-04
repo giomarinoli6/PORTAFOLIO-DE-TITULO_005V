@@ -81,15 +81,17 @@ WSGI_APPLICATION = 'turismoreal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '192.168.32.112:1521/xe',
+        'NAME': 'xe',
         'USER': 'c##roco',#aqui va el nombre de la base que se creo
         'PASSWORD': 'oracle',#aqui va la contraseña
+        'HOST':'localhost',
+        'PORT':'1521',
         'TEST': {
             'USER': 'default_test',
             'TBLSPACE': 'default_test_tbls',
             'TBLSPACE_TMP': 'default_test_tbls_tmp',
         },
-    }, 
+    },
 }
 
 

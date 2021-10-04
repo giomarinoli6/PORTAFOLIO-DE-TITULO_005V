@@ -2,7 +2,35 @@
 
 {% block contenido %}
 
-<h1>Pagina de arriendo</h1>
-
+<h1 id="title"> <i>Departamento</i> </h1>
+<table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>  
+        <th>Nombre</th>  
+        <th>Ubicacion</th>  
+        <th>descripcion</th>  
+        <th>precio</th>  
+        <th>Actions</th>  
+    </tr>  
+    </thead>  
+    <tbody>  
+{% for departamento in departamentos %}    
+    <tr>  
+        <td>{{ departamento.nombre }}</td>   
+        <td>{{ departamento.ubicacion }}</td>  
+        <td>{{ departamento.descripcion }}</td>  
+        <td>{{ departamento.precio }}</td>
+        <td>
+            <a href="/reservar/{{ departamento.id }} ">Reservar</a>
+        </td>
+    </tr>  
+{% endfor %}  
+    </tbody>  
+</table>  
+<br>  
+<br>  
+<!-- <a href="/departamento" class="btn btn-primary">Add New Record</a>   -->
 
 {% endblock  %}
+
+
