@@ -17,6 +17,8 @@
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  
+ 
   <nav id="navegador_prueba" class="navbar navbar-expand-lg navbar-light bg-red">
     <div class="container-fluid collapse navbar-collapse ">
       <a class="navbar-brand" href="#">
@@ -34,14 +36,6 @@
           </li>
 
           <li class="nav-item">
-            <a id="nombresNav" class="nav-link active" aria-current="page" href="{% url 'hotel' %}">hotel<span class="sr-only"></span></a></span>
-          </li>
-
-          <li class="nav-item">
-            <a id="nombresNav" class="nav-link active" aria-current="page" href="{% url 'tour' %}">Tour<span class="sr-only"></span></a></span>
-          </li>
-
-          <li class="nav-item">
             <a id="nombresNav" class="nav-link active" aria-current="page" href="{% url 'login' %}"><i class="fas fa-user-circle"></i>iniciar Sesion <span class="sr-only"></span></a></span>
             
             
@@ -52,10 +46,11 @@
       
     </div>
   </nav>
-  
   {% block contenido %}
     
   {% endblock  %}
+
+
 
   <!--Pie de pagina-->
   <footer id="footer" class="row bg-dark">

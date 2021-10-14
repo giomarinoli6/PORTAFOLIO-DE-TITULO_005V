@@ -1,13 +1,30 @@
 from django.urls import path
-from .views import  createDepa, home, login, registro, arriendodepa, hotel, reserva, tour ,createDepa
+from .views import   actualizarDepartamento, actualizarLocation, crearLocation, editarDepartamento, editarLocation, eliminarDepartamento, eliminarLocation,home, login, registro, arriendodepa, reserva,createDepa, verLocation
 
 urlpatterns = [
+    # paht de inicio ----------------------------------------------------------
     path('', home, name="home"),
     path('login/', login, name="login"),
     path('registro/', registro, name="registro"),
     path('arriendo/', arriendodepa, name="arriendo"),
-    path('hotel/', hotel, name="hotel"),
-    path('tour/', tour, name="tour"),
-    path('departamento/', createDepa, name="departamento"),
-    path('reservar/<int:id>' , reserva, name="reserva"), 
+    # endpaht de inicio 
+
+    #---------------------------------------------------------------------------
+    # paht de location
+    path('crudLocation/' , crearLocation, name="crudLocation"),
+    path('editarLocation/<int:id>' , editarLocation, name="editarLocation"),
+    path('actualizarLocation/<int:id>',actualizarLocation,name="actualizarLocation"),
+    path('eliminarLocation/<int:id>',eliminarLocation,name="eliminarLocation"),
+    path('verLocation/' ,verLocation , name="verLocation"), 
+    # endpath de location
+    # ---------------------------------------------------------------------------
+    # path de departamento
+    path('ingresarDepartamento/', createDepa, name="ingresarDepartamento"),
+    path('editarDepartamento/<int:id>', editarDepartamento, name="editarDepartamento"),
+    path('actualizarDepartamento/<int:id>', actualizarDepartamento, name="actualizarDepartamento"),
+    path('eliminarDepartamento/<int:id>',eliminarDepartamento,name="eliminarDepartamento"),
+    path('reservar/<int:id>' , reserva, name="reserva"),
+    # end path de departamento
 ]
+
+ 

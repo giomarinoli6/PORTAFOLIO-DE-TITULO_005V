@@ -1,0 +1,44 @@
+{% extends 'app/base.html' %}  {% load static %} 
+
+{% block contenido %}
+
+
+
+<h2 class="col-12">Locaciones</h2>
+<table class="table">  
+    <thead class="thead-dark">  
+    <tr>  
+        <th>Nombre</th>  
+        <th>Region</th>  
+        <th>Numero</th>  
+        <th>Nombre</th>  
+        <th>Complemento</th>  
+        <th>Acciones</th>
+    </tr>  
+    </thead>  
+    <tbody>  
+{% for locacion in locaciones %}    
+    <tr>  
+        <td>{{ locacion.id }}</td>   
+        <td>{{ locacion.region }}</td>  
+        <td>{{ locacion.numero }}</td>  
+        <td>{{ locacion.nombre }}</td>
+        <td>{{ locacion.complemento }}</td>
+        <td>
+            <a href="/editarLocation/{{ locacion.id }} "><span class="glyphicon glyphicon-pencil" >Editar</span></a> 
+            <a href="/eliminarLocation/{{ locacion.id }}">Delete</a>  
+        </td>
+    </tr>  
+{% endfor %}  
+    </tbody>  
+</table>  
+<br>  
+<br>  
+
+
+<center><a href="/crudLocation" class="btn btn-primary"> Crear Nueva Locacion</a> </center>
+
+<br>
+<br>
+
+{% endblock %}

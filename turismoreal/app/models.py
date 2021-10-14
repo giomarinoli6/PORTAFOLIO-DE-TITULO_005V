@@ -1,35 +1,21 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator
 # Create your models here.
 
 
-class Arriendo(models.Model):
-    id_arriendo = models.CharField(primary_key=True, max_length=30)  # This field type is a guess.
-    fecha_inicio = models.DateField()  # This field type is a guess.
-    fecha_termino = models.DateField()  # This field type is a guess.
-    #cantidad de personas 
-    descripcion_arriendo = models.TextField()
-    descripcion_tipo_pago = models.CharField(max_length=50)  # This field type is a guess.
-    imagen = models.ImageField(upload_to="arriendo", null=True)
 
-    def __str__(self):
-        return self.id_arriendo
-
+# class Cliente(models.Model):
+#     id_rut = models.CharField(primary_key=True, max_length=11, unique=True)  # This field type is a guess.
+#     nombre = models.CharField(max_length=50 ,blank= False, null=False)  # This field type is a guess.
+#     apellido = models.CharField(max_length=50 ,blank= False, null=False)  # This field type is a guess.
+#     edad = models.IntegerField(blank= False, null=False)
+#     sexo = models.CharField(max_length=9 ,blank= False, null=False)  # This field type is a guess.
+#     correo = models.EmailField(max_length=50 ,blank= False, null=False)  # This field type is a guess.
+#     telefono = models.IntegerField()
     
 
-
-class Cliente(models.Model):
-    id_rut = models.CharField(primary_key=True, max_length=11, unique=True)  # This field type is a guess.
-    nombre = models.CharField(max_length=50)  # This field type is a guess.
-    apellido = models.CharField(max_length=50)  # This field type is a guess.
-    edad = models.IntegerField()
-    sexo = models.CharField(max_length=9)  # This field type is a guess.
-    correo = models.EmailField()  # This field type is a guess.
-    telefono = models.IntegerField()
-    arriendo = models.ForeignKey(Arriendo, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.nombre
+#     def __str__(self):
+#         return self.nombre
 
 
 opciones_consultas = [
@@ -51,11 +37,38 @@ class Registro(models.Model):
     def __str__(self):
         return self.nombre
 
-class Departamento(models.Model): 
+class Location(models.Model):
+    id = models.AutoField(primary_key=True, max_length=11, unique=True)
+    region = models.CharField(max_length=50 ,blank= False, null=False)
+    numero= models.CharField(max_length=10 ,blank= False, null=False)
     nombre = models.CharField(max_length=50)
-    ubicacion= models.CharField(max_length=60)
-    descripcion = models.TextField()
-    precio = models.IntegerField(default=0)
+    complemento =models.TextField(blank= False, null=False)
+    
+    def __str__(self):
+        return self.region
 
+class Departamento(models.Model): 
+    id= models.AutoField(primary_key= True, unique=True)
+    nombre = models.CharField(max_length=50 ,blank= False, null=False)
+    descripcion = models.TextField(blank= False, null=False)
+    precio = models.IntegerField(validators=[MaxValueValidator(9999999999)],blank= False, null=False)
+    mantencion= models.CharField(max_length=50 ,blank= False, null=False)
+
+
+    class Meta:
+        ordering =['nombre']
+    
     def __str__(self):
         return self.nombre
+
+# class pago(models.Model): 
+#     id= models.AutoField(primary_key= True)
+#     tipo = models.TextField(max_length=50)
+#     monto_total = models.IntegerField(default=0)
+#     fecha_pago = models.DateField('Fecha de pago',auto_now=True, auto_now_add=False)
+
+#     class Meta:
+#         ordering =['nombre']
+    
+#     def __str__(self):
+#         return self.nombre

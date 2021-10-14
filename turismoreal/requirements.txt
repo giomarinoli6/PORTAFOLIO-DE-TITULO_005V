@@ -3,3 +3,52 @@ django == 2.2.3
 pillow 
 django-admin-interface
 django-crispy-forms
+
+
+
+# def actualizarLocation(request ,id):
+
+#     locaciones=get_object_or_404(Location, id)
+
+#     data={
+#         'form':LocationForm(instance=locaciones)
+#     }
+
+#     if request.method =='POST':
+#         formulariolocation=LocationForm(data=request.POST,instance=locaciones,files=request.FILES)
+#         if formulariolocation.is_valid():
+#             print("entra a guardar")
+#             formulariolocation.save()
+#             return render(to="verLocation")
+#         data['form']=formulariolocation
+
+#     return render(request,"app/editarLocation.html", {'data':data})
+
+
+
+# def actualizarLocation(request, id):
+#     print("entra en actualizarLocation 2")
+    
+#     locacion = Location.objects.get(id=id)
+#     formularioLocation = LocationForm(request.POST , instance= locacion)
+  
+#     if formularioLocation.is_valid():
+#         print("entra a guardar")
+#         formularioLocation.save()
+#         return render(to="verLocation")
+#     return render(request,"app/editarLocation.html", {'locacion':locacion})
+
+
+# """ def editarLocation(request,id):
+   
+#     locacion= Location.objects.get(id = id)
+#     if request.method == "GET":
+#         formularioLocation = LocationForm (instance= locacion)
+#         print("entra aqui 1")
+#     else:
+#         print("entra aqui 2")
+#         formularioLocation = LocationForm (request.POST , instance= locacion)
+#         if formularioLocation.is_valid():
+#             formularioLocation.save()
+#         return redirect('/verLocation')  
+#     return render(request,'app/crudLocation.html',{'formularioLocation':formularioLocation}) """
