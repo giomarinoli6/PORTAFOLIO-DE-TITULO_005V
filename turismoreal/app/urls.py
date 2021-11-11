@@ -1,11 +1,13 @@
-from django.urls import path
+from django.urls import path, include
+
+
 from .views import   actualizarDepartamento, actualizarLocation, crearLocation, editarDepartamento, editarLocation, eliminarDepartamento, eliminarLocation,home, login, registro, arriendodepa, reserva,createDepa, verLocation
 
 urlpatterns = [
     # paht de inicio ----------------------------------------------------------
     path('', home, name="home"),
-    path('login/', login, name="login"),
-    path('registro/', registro, name="registro"),
+
+
     path('arriendo/', arriendodepa, name="arriendo"),
     # endpaht de inicio 
 

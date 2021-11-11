@@ -53,13 +53,15 @@ class Departamento(models.Model):
     descripcion = models.TextField(blank= False, null=False)
     precio = models.IntegerField(validators=[MaxValueValidator(9999999999)],blank= False, null=False)
     mantencion= models.CharField(max_length=50 ,blank= False, null=False)
-
+    id_Location=models.ForeignKey(Location, on_delete=models.CASCADE,blank= False, null=False)
+    
 
     class Meta:
         ordering =['nombre']
     
     def __str__(self):
         return self.nombre
+
 
 # class pago(models.Model): 
 #     id= models.AutoField(primary_key= True)

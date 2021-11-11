@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect 
 from .models import  Departamento, Location
 from .forms import LocationForm, RegistroForm ,departamentoForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required(login_url='/accounts/login/')
 def home(request):
-    return render(request, 'app/home.html')
+    return render(request, 'index.html')
 
 def login(request):
     return render(request, 'app/login.html')

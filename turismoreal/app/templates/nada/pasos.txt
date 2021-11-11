@@ -1,9 +1,0 @@
-
-
-pasos:
-
-1) Deberia crear modelos (tablas) reales y en el mejor de los casos con sus respectivas relaciones (ojala basarse en una diagrama de E-R)
-2) cuando tenga listo los modelos, entonces capturar los datos del cliente, departamento y todo lo relacionado para generar una reserva. 
-3) en la view deberia entonces crear la reserva, con todos los datos que recopilaste.
-4) verficar que se creo la reserva
-5) emitir un mensaje hacia fuera diciendo que la reserva fue exitosa
