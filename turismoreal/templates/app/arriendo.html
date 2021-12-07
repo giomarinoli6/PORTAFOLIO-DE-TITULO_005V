@@ -1,0 +1,34 @@
+{% extends 'app/index.html' %}  {% load static %} 
+
+{% block contenido %}
+
+{% load static %}
+    <!--================ Accomodation Area  =================-->
+        <section class="accomodation_area section_gap">
+            <div class="container"> {{user}}
+            <div class="col col-6">
+              <form action={% url 'crear-reserva' %} method='POST'>
+    
+                {% csrf_token %}
+              
+            {% load crispy_forms_tags %}
+            {{form|crispy}} 
+
+            <input type="submit" value="Enviar">
+            </form>
+            </div>
+            
+            </div>
+        </section>
+        <!--================ Accomodation Area  =================-->
+        
+<script>
+    
+    var total= document.getElementById('id_n_dias').value;
+    myFunction() {
+    console.log(total)
+}
+</script>
+
+
+{% endblock  %}

@@ -1,0 +1,77 @@
+{% extends 'app/index.html' %}  {% load static %} 
+
+{% block contenido %}
+
+{% load static %}
+    <!--================ Accomodation Area  =================-->
+        <section class="accomodation_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Historial de reservas</h2>
+                    <p>Por fin te has decidido a visitarnos. Ahora solo te falta elegir tu mejor espacio para conocer una ciudad increíble.</p>
+                </div>
+                <div class="row mb_30 justify-content-center">
+
+{% if historial %}
+{% for dato in historial %}
+<div class="col-lg-4 col-sm-6 text-center mb-2">
+    <div class="card">
+        <div class="card-header">
+         <h4><strong> {{dato.id_departamento}}<br> Fecha de inicio: <br>{{dato.fecha_inicio|date:"d-M-y"}}</strong></h4>
+        </div>
+        <div class="card-body">
+                <p>ID reserva: {{dato.id}}</p>
+                <p><bold>fecha de salida:</bold> {{dato.get_final_date|date:"d-M-y"}} </p>
+                
+                <p><bold>nombre de usuario:</bold> {{dato.id_usuario}} </p>
+                <p><bold>numero de dias:</bold> {{dato.n_dias}} </p>
+                
+                <p><bold>agendado el:</bold> {{dato.fecha_creacion|date:"d-M-y"}} </p>
+          
+            
+            
+           <h5>
+               Total:$ {{dato.get_total|floatformat:"-3g"}} <br>
+           </h5> 
+           {% if not dato.checkin %}
+            <p> Por favor rellenar Check-In antes de la llegada </p>
+
+            <a href={% url 'checkin' dato.id %}>
+                <button class="btn btn-warning">rellenar</button>
+            </a>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <a href={% url 'eliminar-reserva' dato.id %}>
+                <button class="btn btn-danger">Cancelar</button>
+            </a>
+            
+        </div>
+        
+    
+    </div>
+   
+    
+  
+    
+</div>
+{% endfor %}
+{% else %}
+
+<h2>
+    No has reservado nada
+</h2>
+{% endif %}             
+                    
+              
+                    
+ 
+                </div>
+            </div>
+        </section>
+        <!--================ Accomodation Area  =================-->
+        
+
+
+
+{% endblock  %}

@@ -1,0 +1,1 @@
+web: gunicorn turismoreal.wsgi:application --log-file -

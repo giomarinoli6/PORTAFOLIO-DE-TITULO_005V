@@ -1,149 +1,122 @@
-from django.shortcuts import render, redirect 
-from .models import  Departamento, Location
-from .forms import LocationForm, RegistroForm ,departamentoForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import  Departamento, Location, Reserva
+from .forms import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.utils.datastructures import MultiValueDictKeyError
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'app/home.html')
-
-def login(request):
-    return render(request, 'app/login.html')
-
-def registro(request):
-    data = {
-        'form' : RegistroForm()
+    context={
+        'lista_departamentos':Departamento.objects.all(),
+        'reserva_precio':Reserva.objects.all(),
     }
+    return render(request, 'app/index.html', context)
+
     
-    if request.method =='POST':
-        formulario = RegistroForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            data["mensaje"] = "registro guardado"
-
-        else:
-            data["form"] = formulario
-
-    return render(request, 'app/registro.html', data)
-
-def arriendo(request):
-     return render(request, 'app/arriendo.html')
-
-
-
-def reserva(request, id):
-    departamento = Departamento.objects.get(id=id)
-    return render(request, 'app/reservar.html', {'departamento':departamento})
+@login_required(login_url='/accounts/login/')
+def reserva(request, id_depa):
+   
+        
+       
+        depa=Departamento.objects.get(id=id_depa)
+        user = User.objects.get(id=request.user.id)
+        dato={'id_usuario':user, 'id_departamento':depa}
+        data={
+        
+    
+            'form':ReservaForm(initial=dato),
+            'user':request.user,
+        }
+        return render(request, 'app/arriendo.html', data)
 
 
+@login_required(login_url='/accounts/login/')
+def crear_reserva(request):
+    context={
+            'form':ReservaForm,
+            
+        }
 
-  
-
-
-# Views Location-----------------------------------------------------------------------------------------
-def crearLocation(request):
     if request.method == "POST":
-        formularioLocation = LocationForm (request.POST)
-        if formularioLocation.is_valid():
-            print("ESTOY EN IF 2")
-            try:
-                formularioLocation.save()
-                return redirect('/verLocation')
-            except:
-                pass
-        else:
-            print(formularioLocation.is_valid())
+        formulario_reserva = ReservaForm(data=request.POST)
+
+        if formulario_reserva.is_valid():
+            formulario_reserva.save()
+            return redirect(to='historial')
     else:
-        formularioLocation = LocationForm()
-    return render(request,'app/crudLocation.html',{'formularioLocation':formularioLocation})
+        formulario_reserva = departamentoForm()
+ 
+    return render(request, 'app/reserva.html')   
 
-def verLocation(request):
-    locaciones = Location.objects.all()
-    return render (request, "app/verLocation.html",{'locaciones':locaciones})
-
-
-def editarLocation(request, id):
-    print("entra en editarLocation 1")
-    
-    locacion= Location.objects.get(id=id) 
-    # formularioLocation = LocationForm (instance= locacion) 
-    return render(request,"app/editarLocation.html", {'locacion':locacion})  
-
-
-
-def actualizarLocation(request, id):
-    print("entra en actualizarLocation 2")
-    
-    locacion = Location.objects.get(id=id)
-
+def registro_de_usuario(request):
     data={
-        'form':LocationForm(instance=locacion)
+        'form':UserCustom(),
     }
 
-    formularioLocation = LocationForm(data=request.POST , instance = locacion)
-    if formularioLocation.is_valid():
-        print("entra a guardar")
-        formularioLocation.save()
-        return redirect('/verLocation/')
-    return render(request,"app/editarLocation.html", {'locacion':locacion, 'formulario':formularioLocation})
+    if request.method == 'POST':
+        formualario = UserCustom(data=request.POST)
+        if formualario.is_valid:
+            formualario.save()
+            user = authenticate(username=formualario.cleaned_data['username'], password=formualario.cleaned_data['password1'])
+            login(request, user)
+            return redirect(to='home')
+        data['form']=formualario
 
-def eliminarLocation(request, id):  
-    locaciones = Location.objects.get(id=id)  
-    locaciones.delete()  
-    return redirect('/verLocation/')
+    return render(request, 'registration/registro.html', data)
 
-# end Views Location-----------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-    
-
-# Views Departamento
-
-# Create your views here.  
-def createDepa(request):  
-    if request.method == "POST":  
-        form = departamentoForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()  
-                return redirect('arriendo')  
-            except:  
-                pass  
-    else:  
-        form = departamentoForm()  
-    return render(request,'app/ingresarDepartamento.html',{'form':form})
-
-def arriendodepa(request):
-    departamentos = Departamento.objects.all()
-
-    return render(request, "app/arriendo.html",{'departamentos': departamentos})
-
-def editarDepartamento(request, id):
-    print("entra en editarDepartament 1")
-    departamento= Departamento.objects.get(id=id) 
-    return render(request,"app/editarDepartamento.html", {'departamento':departamento})  
-
-def actualizarDepartamento(request, id):
-    print("entra en actualizardepartamento 2")
-    
-    departamento = Departamento.objects.get(id=id)
-
-    data={
-        'form':departamentoForm(instance=departamento)
+def departamento(request):
+    context={
+        'lista_departamentos':Departamento.objects.all()
     }
+    
+    return render(request, 'app/departamentos.html', context)
 
-    formularioLocation = departamentoForm(data=request.POST , instance = departamento)
-    if formularioLocation.is_valid():
-        print("entra a guardar")
-        formularioLocation.save()
-        return redirect('/arriendo/')
-    return render(request,"app/editarDepartamento.html", {'departamento':departamento, 'formulario':formularioLocation})
+def dep_individual(request, id):
+    dpto=Departamento.objects.get(id=id)
 
-def eliminarDepartamento(request, id):  
-    departamentos = Departamento.objects.get(id=id)  
-    departamentos.delete()  
-    return redirect('/arriendo/')
+    context={
+        'dpto':dpto,
+    }
+    return render(request,'app/depa_individual.html', context )
+
+def historial(request):
+    user=request.user
+    historial=Reserva.objects.filter(id_usuario=user)
+    return render(request,"app/historial.html", { 'historial':historial})
+
+def eliminarReserva(request, id):
+
+    reserva= get_object_or_404(Reserva, id=id)
+    reserva.delete()
+    return redirect(to='historial')
+
+def checkIn(request, id):
+
+    reserva= get_object_or_404(Reserva, id=id)
+    if request.user.id == reserva.id_usuario.id:
+        
+        dato={'reserva':reserva}
+        if request.method == "POST":
+            formulario = CheckInForm(request.POST)
+            if formulario.is_valid():
+                print("ESTOY EN IF 2")
+                formulario.save()
+                return redirect(to='historial')
+        else:
+            formulario = CheckInForm(initial=dato)
+
+        
+        context={
+            'form':formulario
+        }
+    
+
+
+        
+        return render(request,"app/checkin.html", context)
+    else:
+
+        return redirect(to='historial')

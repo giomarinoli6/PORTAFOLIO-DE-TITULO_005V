@@ -1,0 +1,47 @@
+{% extends 'app/index.html' %}  {% load static %} 
+
+{% block contenido %}
+
+{% load static %}
+    <!--================ Accomodation Area  =================-->
+        <section class="accomodation_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">{{dpto.nombre}}</h2>
+                    
+                </div>
+                <div class="row">
+
+          
+                    
+                    
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+
+                                <img src= {{dpto.imagen.url}}  alt="imagen" height='250px'>
+
+                                <a href="{% url 'reserva' dpto.id %}" class="btn theme_btn button_hover">¡Reserva!</a>
+                            </div>
+                            <h4 class="sec_h4">{{dpto.nombre}}</h4>
+
+                            <h5>${{dpto.precio}}<small>/dia</small></h5>
+                            <h4>{{dpto.descripcion}}</h4>
+                            <h4>Cuenta con {{dpto.n_cuartos}} habitaciones</h4>
+
+                            
+                        </div>
+                    </div>
+                
+            
+                    
+ 
+                </div>
+            </div>
+        </section>
+        <!--================ Accomodation Area  =================-->
+        
+
+
+
+{% endblock  %}

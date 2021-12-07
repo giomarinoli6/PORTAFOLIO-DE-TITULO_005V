@@ -1,0 +1,83 @@
+{% extends 'index.html' %}  {% load static %} 
+
+{% block contenido %}
+<!-- CARGANDO JAVASCRIPT CON CODIGO PATA CONFIRMAR ELIMINACION DE ARTICULO
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{% static 'articulos/js/confirma_eliminacion.js' %}"></script>
+{% endblock %} -->
+<form method="POST" class="post-form" action="/actualizarDepartamento/{{departamento.id}}" enctype="multipart/form-data">
+    
+    {% csrf_token%}
+    <div class="contenedor">
+        <br>
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-1 col-form-label"> </label>
+            <div class="col-sm-4">
+                <h3> Modificar Departamento </h3>
+            </div>
+        </div>
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-2 col-form-label"> id: </label>
+            <div class="col-sm-4">
+                <input type="number"  name="id" id="id_id" required maxlength="2" value="{{ departamento.id}}" readonly/> 
+            </div>
+        </div>
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-2 col-form-label"> Nombre: </label>
+            <div class="col-sm-4">
+                <input type="text" name="nombre" id="id_nombre" required maxlength="50" value="{{ departamento.nombre  }}"/>
+            </div>
+        </div>
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-2 col-form-label"> Descripcion: </label>
+            <div class="col-sm-4">
+                <input type="text" name="descripcion" id="id_descripcion" required maxlength="100" value="{{ departamento.descripcion }}"/> 
+            </div>
+        </div>
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-2 col-form-label"> Precio: </label>
+            <div class="col-sm-4">
+                <input type="number" name="precio" id="id_precio" required maxlength="10" value="{{ departamento.precio }}"/> 
+            </div>
+        </div>
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-2 col-form-label"> Mantencion: </label>
+            <div class="col-sm-4">
+                <input type="text" name="mantencion" id="id_mantencion" required maxlength="100" value="{{ departamento.mantencion }}"/>
+            </div>
+        </div>
+        <div class="fila de grupo de formulario">
+            
+            <div class="col-sm-4">
+                <label for="exampleFormControlSelect1">Location</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      {% for option in location %}<option>{{option}}</option>{% endfor %}
+ 
+    </select>
+
+            </div>
+        </div>
+
+        <!-- <td>
+            BOTON ELIMINAR
+            <a href="#" onclick="eliminar( '{{usuario.email}}' )">
+                <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+            </a>
+        </td> -->
+    </div>
+</form>
+
+<b><p>El error es: {{ formulario.as_p }}</p></b>
+
+{% if formulario.errors %}
+    {% for field in formulario %}
+        {% for error in field.errors %}
+            <br>{{ error }}<br>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+
+{% endblock  %}
+

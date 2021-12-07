@@ -1,0 +1,65 @@
+
+{% extends 'index.html' %}  {% load static %} 
+
+{% block contenido %}
+
+
+    
+    <div class="contenedor">
+
+   
+
+
+        <div class="fila de grupo de formulario">
+            <label class="col-sm-1 col-form-label"> </label>
+            <div class="col-sm-4">
+                <h3> Detalles de la actualización </h3>
+            </div>
+        </div>
+
+
+        <div class="col col-6"> <form method="POST" class=" formulario_ingreso_depa post-form" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+          
+            <input type="submit" value="enviar" class="btn btn-danger">
+          </form>
+        </div>
+
+      
+
+   
+        
+    </div>
+
+
+<!--<b><p>El error es: {{ formulario.as_p }}</p></b>
+
+ {% if formulario.errors %}
+    {% for field in formulario %}
+        {% for error in field.errors %}
+            <br>{{ error }}<br>
+        {% endfor %}
+    {% endfor %}
+{% endif %} -->
+
+
+{% endblock  %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

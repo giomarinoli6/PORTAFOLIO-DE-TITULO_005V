@@ -1,0 +1,54 @@
+{% extends 'index.html' %} {% load static %}
+
+{% block contenido %}
+
+
+
+<div class="row justify-content-center">
+   
+   
+
+  <div class="col col-5 mt-3 mb-5">
+    <div class="card bg-white text-center">
+       <div class="card-header">
+          <h4>
+            ID {{name}}: {{checkout.id}}<br>
+             {{checkout.reserva.id_departamento.nombre}} 
+             
+          </h4> 
+       </div>
+        <div class="card-body">
+          <p>
+            ID Reserva: {{checkout.reserva.id}} <br>
+            Fecha de creacion: {{checkout.fecha_creacion|date:'d-M-y'}} <br>
+            Nombre de Usuario: {{checkout.reserva.id_usuario}} <br>
+            fecha de entrada: {{checkout.reserva.fecha_inicio|date:'d-M-y'}} <br>
+            fecha de salida: {{checkout.reserva.get_final_date|date:'d-M-y'}} <br>
+
+            {% if name == 'CHECK-OUT' %}
+            Ultima modificación: {{checkout.fecha_modificacion}} <br>
+            
+            
+            reparos: {{checkout.reparos}} <br>
+            multa: {{checkout.get_total_reparo}} <br>
+
+            {% else %}
+            n de personas: {{checkout.n_personas}}
+            {% endif %}
+          </p>  
+        </div>
+        <div class="card-footer">
+    <a href= {% url 'mantenedor-reservas' %} ><button class="btn btn-primary" >Volver</button></a>
+
+        </div>
+       
+    </div>
+<div class="col">
+    
+</div>
+    </div>
+
+</div>
+
+
+{% endblock %}

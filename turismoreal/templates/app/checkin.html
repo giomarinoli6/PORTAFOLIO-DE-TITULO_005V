@@ -1,0 +1,42 @@
+{% extends 'app/index.html' %}  {% load static %} 
+
+{% block contenido %}
+  <!--================ Accomodation Area  =================-->
+  <section class="accomodation_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Rellenar el Check-In</h2>
+            
+        </div>
+        <div class="row justify-content-center">
+
+  
+            
+            
+            <div class="col-lg-4 col-sm-12">
+                <div class="accomodation_item text-center">
+                    <div class="col">
+                        <form method='POST'>
+                            {% load crispy_forms_tags %}
+
+                   {% csrf_token %}
+                {{form|crispy}}
+                
+                <input type="submit">
+                
+                </form>
+                    
+                </div>
+            </div>
+        
+    
+            
+
+        </div>
+    </div>
+</section>
+<!--================ Accomodation Area  =================-->
+
+
+
+{% endblock  %}

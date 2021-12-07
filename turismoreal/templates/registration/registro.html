@@ -1,0 +1,31 @@
+{% extends 'app/index.html' %}
+
+{% block contenido %}
+
+<div class="col">
+
+
+</div>
+
+
+        <!--================ Latest Blog Area  =================-->
+        <section class="latest_blog_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Registro</h2>
+                    <p>Registra una sesion.</p>
+                </div>
+                <div class="row mb_30 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                <form action="" method="post">
+                        {% csrf_token %}
+                        {% load crispy_forms_tags %}
+                        {{form|crispy}}
+                        <input type="submit" value="enviar" class="btn theme_btn">
+                    
+                 </form>
+                </div>
+                </div>
+            </div>
+        </section>
+{% endblock contenido %}

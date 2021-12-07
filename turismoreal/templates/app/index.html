@@ -1,0 +1,63 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="image/favicon.png" type="image/png">
+        <title>Royal Hotel</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href= {% static "plantilla/css/bootstrap.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/vendors/linericon/style.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/css/font-awesome.min.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/vendors/owl-carousel/owl.carousel.min.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/vendors/nice-select/css/nice-select.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/vendors/owl-carousel/owl.carousel.min.css" %}>
+        <!-- main css -->
+        <link rel="stylesheet" href= {% static "plantilla/css/style.css" %}>
+        <link rel="stylesheet" href= {% static "plantilla/css/responsive.css" %}>
+    </head>
+    <body>
+       
+        <header class="header_area">
+            <div class="container">
+                {% include 'app/componentes/sidebar.html' %}
+            </div>
+        </header>
+        {% block contenido %}
+           {% include 'app/banner.html' %}
+        {% comment "seccion de blog" %}{% include 'app/latest.html' %}{% endcomment %}
+        {% include 'app/acomodation.html' %}
+        
+        
+        
+        
+        {% endblock contenido %}
+
+         {% include 'app/footer.html' %}
+
+    
+ 
+
+        
+
+        
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src= {% static "plantilla/js/jquery-3.2.1.min.js" %}></script>
+        <script src= {% static "plantilla/js/popper.js" %}></script>
+        <script src= {% static "plantilla/js/bootstrap.min.js" %}></script>
+        <script src= {% static "plantilla/vendors/owl-carousel/owl.carousel.min.js" %}></script>
+        <script src= {% static "plantilla/js/jquery.ajaxchimp.min.js" %}></script>
+        <script src= {% static "plantilla/js/mail-script.js" %}></script>
+        <script src= {% static "plantilla/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js" %}></script>
+        <script src= {% static "plantilla/vendors/nice-select/js/jquery.nice-select.js" %}></script>
+        <script src= {% static "plantilla/js/mail-script.js" %}></script>
+        <script src= {% static "plantilla/js/stellar.js" %}></script>
+        <script src= {% static "plantilla/vendors/lightbox/simpleLightbox.min.js" %}></script>
+        <script src= {% static "plantilla/js/custom.js" %}></script>
+    </body>
+</html>

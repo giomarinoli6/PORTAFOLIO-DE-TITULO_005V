@@ -1,21 +1,13 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
+from django.contrib import admin
+import datetime
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 
-
-# class Cliente(models.Model):
-#     id_rut = models.CharField(primary_key=True, max_length=11, unique=True)  # This field type is a guess.
-#     nombre = models.CharField(max_length=50 ,blank= False, null=False)  # This field type is a guess.
-#     apellido = models.CharField(max_length=50 ,blank= False, null=False)  # This field type is a guess.
-#     edad = models.IntegerField(blank= False, null=False)
-#     sexo = models.CharField(max_length=9 ,blank= False, null=False)  # This field type is a guess.
-#     correo = models.EmailField(max_length=50 ,blank= False, null=False)  # This field type is a guess.
-#     telefono = models.IntegerField()
-    
-
-#     def __str__(self):
-#         return self.nombre
 
 
 opciones_consultas = [
@@ -27,33 +19,26 @@ opciones_consultas = [
 ]
 
 
-class Registro(models.Model):
-    nombre = models.CharField(max_length=50)
-    correo = models.EmailField()
-    tipo_registro = models.IntegerField(choices=opciones_consultas)
-    mensaje = models.TextField()
-    avisos = models.BooleanField()
-
-    def __str__(self):
-        return self.nombre
-
 class Location(models.Model):
-    id = models.AutoField(primary_key=True, max_length=11, unique=True)
+
     region = models.CharField(max_length=50 ,blank= False, null=False)
     numero= models.CharField(max_length=10 ,blank= False, null=False)
-    nombre = models.CharField(max_length=50)
-    complemento =models.TextField(blank= False, null=False)
+    
     
     def __str__(self):
         return self.region
 
 class Departamento(models.Model): 
-    id= models.AutoField(primary_key= True, unique=True)
+
     nombre = models.CharField(max_length=50 ,blank= False, null=False)
     descripcion = models.TextField(blank= False, null=False)
-    precio = models.IntegerField(validators=[MaxValueValidator(9999999999)],blank= False, null=False)
+    n_cuartos=precio = models.IntegerField(blank= True, null=True)
+    precio = models.IntegerField(blank= False, null=False)
     mantencion= models.CharField(max_length=50 ,blank= False, null=False)
+    id_Location=models.ForeignKey(Location, on_delete=models.CASCADE,blank= False, null=False)
 
+    imagen=models.ImageField( upload_to='departamento', null=True)
+    
 
     class Meta:
         ordering =['nombre']
@@ -61,14 +46,55 @@ class Departamento(models.Model):
     def __str__(self):
         return self.nombre
 
-# class pago(models.Model): 
-#     id= models.AutoField(primary_key= True)
-#     tipo = models.TextField(max_length=50)
-#     monto_total = models.IntegerField(default=0)
-#     fecha_pago = models.DateField('Fecha de pago',auto_now=True, auto_now_add=False)
 
-#     class Meta:
-#         ordering =['nombre']
-    
-#     def __str__(self):
-#         return self.nombre
+class Reserva(models.Model):
+    fecha_creacion=models.DateField( auto_now=False, auto_now_add=True)
+    fecha_inicio=models.DateTimeField( auto_now=False, auto_now_add=False)
+    n_dias=models.IntegerField()
+    id_usuario=models.ForeignKey(User,  on_delete=models.CASCADE, related_name="reservas")
+    id_departamento=models.ForeignKey(Departamento,  on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.id)
+
+    def get_total(self):
+
+        total=self.n_dias * self.id_departamento.precio
+        return total
+
+    def get_final_date(self):
+        final_date=self.fecha_inicio+datetime.timedelta(days=self.n_dias)
+        return final_date
+
+class ReservaAdmin(admin.ModelAdmin):
+    list_display = ('fecha_inicio','id_usuario')
+
+METODOS_DE_PAGO=(
+    ('1','EFECTIVO'),
+    ('2','DEBITO'),
+    ('3','CREDITO')
+    )
+
+class CheckIn(models.Model):
+    fecha_creacion=models.DateField( auto_now=False, auto_now_add=True,blank=True, null=True)
+    reserva= models.OneToOneField(Reserva, on_delete=models.CASCADE , related_name="checkin")
+    n_personas=models.IntegerField()
+    tipo_pago= models.CharField(max_length=150,choices=METODOS_DE_PAGO,blank=True, null=True)
+
+
+REPARO=(
+    ('0','NINGUNO'),
+    ('1','LEVES'),
+    ('3','GRAVES'),
+    ('5','GRAVISIMOS')
+    )
+
+class CheckOut(models.Model):
+    fecha_creacion=models.DateField( auto_now=False, auto_now_add=True)
+    fecha_modificacion=models.DateField( auto_now=True, auto_now_add=False)
+    reserva= models.OneToOneField(Reserva, on_delete=models.CASCADE , related_name="checkout")
+    reparos=models.CharField(max_length=150,choices=REPARO,blank=True, null=True)
+
+    def get_total_reparo(self):
+
+        total=int(self.reparos) * self.reserva.id_departamento.precio
+        return total

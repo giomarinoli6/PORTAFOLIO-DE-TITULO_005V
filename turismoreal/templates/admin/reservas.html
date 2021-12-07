@@ -1,0 +1,95 @@
+{% extends 'index.html' %} {% load static %}
+
+{% block contenido %}
+<div class="row">
+   <div class="col">
+    <h2>Reservas<h2>
+
+</div>
+   
+</div>
+
+
+<div class="row justify-content-center">
+
+    
+  <div class="col col-10 mt-3 mb-5">
+
+    <div class="card bg-white">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">depa</th>
+                <th scope="col">usuario</th>
+                <th scope="col">fecha inicio</th>
+                <th scope="col">dias</th>
+                <th scope="col">fecha termino</th>
+                <th scope="col">fecha creacion </th>
+                <th scope="col">check in</th>
+                <th scope="col">check out</th>
+                <!--<th scope="col">Opciones</th>-->
+              </tr>
+            </thead>
+            <tbody>
+                {% for dato in reservas %}
+               
+                <tr>
+                    <th scope="row">{{dato.id}}</th>
+                    <td>{{dato.id_departamento}}</td>
+                    <td>{{dato.id_usuario}}</td>
+                    <td>{{dato.fecha_inicio|date:'d-M-y'}}</td>
+                    <td>{{dato.n_dias}}</td>
+                    <td>{{dato.get_final_date|date:'d-M-y'}}</td>
+                    
+                    <td>{{dato.fecha_creacion|date:'d-M-y'}}</td>
+                    <td>
+                        {% if dato.checkin %}
+                        <a href= {% url 'checkin-info' dato.checkin.id %} > Completado</a>
+                          {% else %}
+                          <a href= {% url 'checkin-admin' dato.id %} ><button class="btn btn-small btn-info">completar</button></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                      {% if dato.checkout %}
+                      <a href= {% url 'checkout-info' dato.checkout.id %} > Completado</a>
+                        {% else %}
+                        <a href= {% url 'checkout-admin' dato.id %} ><button class="btn btn-small btn-danger">completar</button></a>
+                      {% endif %}
+                  </td>
+       
+         
+                    <!--<td>
+                        <a href="{% url 'eliminar-departamento' dato.id %}"><i class="fas fa-trash-alt" ></i></a> 
+    
+                   
+                        <a href={% url 'modificar-departamento' dato.id %}><i class="fas fa-edit"></i></i></a> 
+                        
+                         Button trigger modal -->
+    
+                    </td>
+                  </tr>
+               
+                  {% endfor %}
+               
+          
+             
+            </tbody>
+          </table>
+         
+          
+                 
+          
+
+    </div>
+    </div>
+
+
+
+
+</div>
+
+</div>
+
+
+{% endblock %}

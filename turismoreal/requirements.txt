@@ -3,7 +3,9 @@ django == 2.2.3
 pillow 
 django-admin-interface
 django-crispy-forms
-
+django-heroku==0.3.1
+gunicorn==20.1.0
+psycopg2==2.8.6
 
 
 # def actualizarLocation(request ,id):
